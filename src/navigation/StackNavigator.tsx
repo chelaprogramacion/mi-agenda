@@ -1,76 +1,42 @@
+
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import TurnosScreen, { Turno } from "../screens/TurnosScreen";
-import TramitesScreen, { Tramite } from "../screens/TramitesScreen";
+import InicioScreen from "../screens/InicioScreen";
+import TurnosScreen from "../screens/TurnosScreen";
+import TramitesScreen from "../screens/TramitesScreen";
 import ActividadesScreen from "../screens/ActividadesScreen";
-import HoyScreen from "../screens/HoyScreen";
-
-// Props para Turnos y Trámites
-interface StackNavigatorProps {
-  turnos: Turno[];
-  addTurno: (nombre: string) => void;
-  toggleTurno: (id: number) => void;
-  deleteTurno: (id: number) => void;
-
-  tramites: Tramite[];
-  addTramite: (nombre: string) => void;
-  toggleTramite: (id: number) => void;
-  deleteTramite: (id: number) => void;
-}
 
 const Stack = createNativeStackNavigator();
 
-const StackNavigator: React.FC<StackNavigatorProps> = ({
-  turnos,
-  addTurno,
-  toggleTurno,
-  deleteTurno,
-  tramites,
-  addTramite,
-  toggleTramite,
-  deleteTramite,
-}) => {
+export default function StackNavigator() {
   return (
     <Stack.Navigator>
-      {/* Pantalla Inicio */}
-      <Stack.Screen name="HoyScreen" options={{ title: "Inicio" }}>
-        {props => <HoyScreen {...props} />}
-      </Stack.Screen>
+      
+      <Stack.Screen 
+        name="Inicio" 
+        component={InicioScreen} 
+        options={{ headerShown: false }} 
+      />
 
-      {/* Turnos */}
-      <Stack.Screen name="Turnos" options={{ title: "Turnos Médicos" }}>
-        {props => (
-          <TurnosScreen
-            {...props}
-            turnos={turnos}
-            addTurno={addTurno}
-            toggleTurno={toggleTurno}
-            deleteTurno={deleteTurno}
-          />
-        )}
-      </Stack.Screen>
-
-      {/* Trámites */}
-      <Stack.Screen name="Tramites" options={{ title: "Trámites" }}>
-        {props => (
-          <TramitesScreen
-            {...props}
-            tramites={tramites}
-            addTramite={addTramite}
-            toggleTramite={toggleTramite}
-            deleteTramite={deleteTramite}
-          />
-        )}
-      </Stack.Screen>
-
-      {/* Actividades */}
-      <Stack.Screen
-        name="Actividades"
-        component={ActividadesScreen}
-        options={{ title: "Actividades" }}
+      
+      <Stack.Screen 
+        name="Turnos" 
+        component={TurnosScreen} 
+        options={{ 
+    headerTitle: "", }} 
+      />
+      <Stack.Screen 
+        name="Tramites" 
+        component={TramitesScreen} 
+         options={{ 
+    headerTitle: "", }} 
+      />
+      <Stack.Screen 
+        name="Actividades" 
+        component={ActividadesScreen} 
+         options={{ 
+    headerTitle: "", }} 
       />
     </Stack.Navigator>
   );
-};
-
-export default StackNavigator;
+}

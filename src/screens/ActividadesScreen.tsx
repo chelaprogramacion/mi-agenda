@@ -1,4 +1,3 @@
-// src/screens/ActividadesScreen.tsx
 import React, { useState } from "react";
 import {
   View,
@@ -12,7 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Calendar } from "react-native-calendars";
 
-interface Actividad {
+export interface Actividad {
   id: number;
   nombre: string;
   fecha: string;
@@ -23,7 +22,7 @@ const ActividadesScreen: React.FC = () => {
   const [nuevaActividad, setNuevaActividad] = useState("");
   const [fechaSeleccionada, setFechaSeleccionada] = useState<string>("");
 
-  // 🔹 Guardar actividades
+  
   const guardarActividades = async (lista: Actividad[]) => {
     try {
       await AsyncStorage.setItem("actividades", JSON.stringify(lista));
@@ -32,7 +31,7 @@ const ActividadesScreen: React.FC = () => {
     }
   };
 
-  // 🔹 Selección de fecha en el calendario
+  
   const handleSeleccionFecha = async (day: any) => {
     const fecha = day.dateString;
     setFechaSeleccionada(fecha);
@@ -46,19 +45,19 @@ const ActividadesScreen: React.FC = () => {
     }
   };
 
-  // 🔹 Agregar actividad con verificación de turnos y trámites
+  
   const handleAgregarActividad = async () => {
     if (!nuevaActividad.trim()) {
       Alert.alert("Error", "Ingresa el nombre de la actividad");
       return;
     }
     if (!fechaSeleccionada) {
-      Alert.alert("Error", "Selecciona una fecha primero");
+      Alert.alert("Error", "Selecciona una fecha en el calendario");
       return;
     }
 
     try {
-      // Leer turnos y trámites guardados
+      
       const dataTurnos = await AsyncStorage.getItem("turnos");
       const turnos = dataTurnos ? JSON.parse(dataTurnos) : [];
 
@@ -89,7 +88,7 @@ const ActividadesScreen: React.FC = () => {
     }
   };
 
-  // 🔹 Función que realmente agrega la actividad
+  
   const agregarActividadConfirmada = async () => {
     const nueva: Actividad = {
       id: Date.now(),
@@ -105,14 +104,14 @@ const ActividadesScreen: React.FC = () => {
     Alert.alert("✅ Actividad agregada", `Agregada para el ${fechaSeleccionada}`);
   };
 
-  // 🔹 Eliminar actividad
+  
   const deleteActividad = async (id: number) => {
     const nuevaLista = actividades.filter((a) => a.id !== id);
     setActividades(nuevaLista);
     await guardarActividades(nuevaLista);
   };
 
-  // 🔹 Filtrar actividades por fecha seleccionada
+  
   const actividadesDelDia = fechaSeleccionada
     ? actividades.filter((a) => a.fecha === fechaSeleccionada)
     : [];
@@ -172,20 +171,20 @@ const ActividadesScreen: React.FC = () => {
 export default ActividadesScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: { flex: 1, padding: 20, backgroundColor: "#f3e8ff" },
   title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
   subTitle: { textAlign: "center", marginVertical: 10, fontWeight: "600" },
   inputContainer: { flexDirection: "row", marginBottom: 20 },
   input: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 2,
+    borderColor: "#000",
     borderRadius: 8,
     paddingHorizontal: 12,
     height: 40,
   },
   button: {
-    backgroundColor: "#2563eb",
+    backgroundColor: "#16a34a",
     paddingHorizontal: 15,
     justifyContent: "center",
     marginLeft: 10,

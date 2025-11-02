@@ -9,17 +9,22 @@
 mi-agenda/
 │
 ├─ assets/
+│
 ├─ src/
 │  ├─ screens/
 │  │  ├─ Actividades/
-│  │  ├─ Hoy/
+│  │  ├─ Inicio/
 │  │  ├─ Turnos/
 │  │  ├─ Tramites/
 │  │  └─ Notas/
 │  └─ navigation/
+│     ├─ StackNavigation.tsx   
+│     └─ TabNavigator.tsx      
+│
 ├─ types/
 │  ├─ declaration.d.ts
-│  └─ navigation.ts
+│  └─ navigation.ts            
+│
 ├─ .gitignore
 ├─ app.json
 ├─ app.tsx
@@ -53,7 +58,7 @@ npm install @react-native-async-storage/async-storage
 
 ---
 
-##  Instalación y ejecución
+## Instalación y ejecución 
 bash
 
 git clone https://github.com/chelaprogramacion/mi-agenda.git
@@ -64,7 +69,7 @@ npx expo start
 Uso:
 En la pantalla principal verás tres botones:
 
- Turnos Médicos
+ Turnos médicos
 
  Trámites
 

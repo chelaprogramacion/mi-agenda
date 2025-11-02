@@ -11,7 +11,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Calendar } from "react-native-calendars";
 
-interface Tramite {
+ interface Tramite {
   id: number;
   nombre: string;
   fecha: string;
@@ -22,7 +22,7 @@ const TramitesScreen: React.FC = () => {
   const [nuevoTramite, setNuevoTramite] = useState("");
   const [fechaSeleccionada, setFechaSeleccionada] = useState<string>("");
 
-  // 🔹 Guardar trámites
+  
   const guardarTramites = async (lista: Tramite[]) => {
     try {
       await AsyncStorage.setItem("tramites", JSON.stringify(lista));
@@ -31,13 +31,13 @@ const TramitesScreen: React.FC = () => {
     }
   };
 
-  // 🔹 Cuando se selecciona una fecha
+  
   const handleSeleccionFecha = async (day: any) => {
     const fecha = day.dateString;
     setFechaSeleccionada(fecha);
 
     try {
-      // Cargar trámites guardados
+      
       const dataTramites = await AsyncStorage.getItem("tramites");
       const tramitesGuardados = dataTramites ? JSON.parse(dataTramites) : [];
       setTramites(tramitesGuardados);
@@ -46,7 +46,7 @@ const TramitesScreen: React.FC = () => {
     }
   };
 
-  // 🔹 Agregar trámite (con verificación de turno)
+  
   const handleAgregarTramite = async () => {
     if (!nuevoTramite.trim()) {
       Alert.alert("Error", "Ingresa el nombre del trámite");
@@ -58,30 +58,38 @@ const TramitesScreen: React.FC = () => {
     }
 
     try {
-      // Leer turnos médicos guardados
+      
       const dataTurnos = await AsyncStorage.getItem("turnos");
-      const turnos = dataTurnos ? JSON.parse(dataTurnos) : [];
+    const turnos = dataTurnos ? JSON.parse(dataTurnos) : [];
 
-      const tieneTurnoEseDia = turnos.some((t: any) => t.fecha === fechaSeleccionada);
+    const dataActividades = await AsyncStorage.getItem("actividades");
+    const actividades = dataActividades ? JSON.parse(dataActividades) : [];
 
-      if (tieneTurnoEseDia) {
-        Alert.alert(
-          "⚠️ Atención",
-          "Ya tenés un turno médico en esta fecha. ¿Querés agendar el trámite igual?",
-          [
-            { text: "No", style: "cancel" },
-            { text: "Sí", onPress: () => agregarTramiteConfirmado() },
-          ]
-        );
-      } else {
-        agregarTramiteConfirmado();
+    const hayTurno = turnos.some((t: any) => t.fecha === fechaSeleccionada);
+    const hayActividad = actividades.some((a: any) => a.fecha === fechaSeleccionada);
+
+    if (hayTurno || hayActividad) {
+      Alert.alert(
+        "⚠️ Atención",
+        `Ya tenés ${
+          hayTurno ? "un turno médico" : ""
+        }${hayTurno && hayActividad ? " y " : ""}${
+          hayActividad ? "una actividad" : ""
+        } en esta fecha. ¿Querés agendar el trámite igual?`,
+        [
+          { text: "No", style: "cancel" },
+          { text: "Sí", onPress: () => agregarTramiteConfirmado() },
+        ]
+      );
+    } else {
+      agregarTramiteConfirmado();
       }
     } catch (error) {
       console.error("Error al verificar turnos", error);
     }
   };
 
-  // 🔹 Función auxiliar que realmente agrega el trámite
+  
   const agregarTramiteConfirmado = async () => {
     const nuevo: Tramite = {
       id: Date.now(),
@@ -97,14 +105,14 @@ const TramitesScreen: React.FC = () => {
     Alert.alert("✅ Trámite agregado", `Agregado para el ${fechaSeleccionada}`);
   };
 
-  // 🔹 Eliminar trámite
+  
   const deleteTramite = async (id: number) => {
     const nuevaLista = tramites.filter((t) => t.id !== id);
     setTramites(nuevaLista);
     await guardarTramites(nuevaLista);
   };
 
-  // 🔹 Filtrar trámites por fecha seleccionada
+  
   const tramitesDelDia = fechaSeleccionada
     ? tramites.filter((t) => t.fecha === fechaSeleccionada)
     : [];
@@ -146,7 +154,7 @@ const TramitesScreen: React.FC = () => {
             <View key={t.id} style={styles.tramiteItem}>
               <Text style={styles.tramiteText}>• {t.nombre}</Text>
 
-              {/* 🔸 Botón eliminar */}
+              
               <TouchableOpacity
                 onPress={() => deleteTramite(t.id)}
                 style={styles.deleteButton}
@@ -166,14 +174,14 @@ const TramitesScreen: React.FC = () => {
 export default TramitesScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: { flex: 1, padding: 20, backgroundColor: "#e6f7ff" },
   title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
   subTitle: { textAlign: "center", marginVertical: 10, fontWeight: "600" },
   inputContainer: { flexDirection: "row", marginBottom: 20 },
   input: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#ccc",
+    borderWidth: 2,
+    borderColor: "#000",
     borderRadius: 8,
     paddingHorizontal: 12,
     height: 40,

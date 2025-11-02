@@ -103,15 +103,16 @@ const NotasScreen: React.FC = () => {
 export default NotasScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20 },
+  container: { flex: 1, padding: 20, paddingTop: 100, backgroundColor: "#ffffff", },
   title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
   inputContainer: { flexDirection: "row", marginBottom: 20 },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#000",
     borderRadius: 8,
     paddingHorizontal: 12,
+    
     height: 40,
   },
   button: {
@@ -127,7 +128,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingVertical: 10,
-    paddingRight: 40, // espacio para el botón ❌
+    paddingRight: 40, 
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
     position: "relative",
