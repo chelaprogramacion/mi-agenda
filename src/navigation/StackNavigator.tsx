@@ -1,42 +1,35 @@
-
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import InicioScreen from "../screens/InicioScreen";
-import TurnosScreen from "../screens/TurnosScreen";
-import TramitesScreen from "../screens/TramitesScreen";
-import ActividadesScreen from "../screens/ActividadesScreen";
+import EventosScreen from "../screens/EventosScreen";
+import ListaEventosScreen from "../screens/ListaEventosScreen";
 
 const Stack = createNativeStackNavigator();
 
 export default function StackNavigator() {
   return (
     <Stack.Navigator>
-      
-      <Stack.Screen 
-        name="Inicio" 
-        component={InicioScreen} 
-        options={{ headerShown: false }} 
+
+      <Stack.Screen
+        name="Inicio"
+        component={InicioScreen}
+        options={{ headerShown: false }}
       />
 
-      
-      <Stack.Screen 
-        name="Turnos" 
-        component={TurnosScreen} 
-        options={{ 
-    headerTitle: "", }} 
+      <Stack.Screen
+        name="Eventos"
+        component={EventosScreen}
+        options={{
+          headerTitle: "",
+        }}
+        
       />
-      <Stack.Screen 
-        name="Tramites" 
-        component={TramitesScreen} 
-         options={{ 
-    headerTitle: "", }} 
-      />
-      <Stack.Screen 
-        name="Actividades" 
-        component={ActividadesScreen} 
-         options={{ 
-    headerTitle: "", }} 
-      />
+      <Stack.Screen
+  name="ListaEventos"
+  component={ListaEventosScreen}
+  options={{ headerTitle: "Lista de Eventos" }}
+/>
+
     </Stack.Navigator>
   );
 }
