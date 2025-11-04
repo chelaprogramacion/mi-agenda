@@ -1,6 +1,6 @@
 # Mi Agenda
 
-**Mi Agenda** es una aplicación móvil que permite organizar turnos médicos, trámites y actividades y notas en un solo lugar. La app avisa si ya hay algo agendado en el mismo día, evitando superposiciones y ayudando a gestionar mejor el tiempo.
+**Mi Agenda** es una aplicación móvil que permite organizar turnos médicos, trámites y actividades y notas en un solo lugar. La app avisa si ya hay algo agendado en el mismo día y horario, evitando superposiciones y ayudando a gestionar mejor el tiempo.
 
 ---
 
@@ -12,13 +12,12 @@ mi-agenda/
 │
 ├─ src/
 │  ├─ screens/
-│  │  ├─ Actividades/
-│  │  ├─ Inicio/
-│  │  ├─ Turnos/
-│  │  ├─ Tramites/
-│  │  └─ Notas/
+│  │  ├─ Inicio/                  # Pantalla principal con acceso a Eventos y Lista de Eventos
+│  │  ├─ Eventos/                 # Aquí se agregan turnos, trámites y actividades
+│  │  ├─ ListaEventos/            # Lista de todos los eventos
+│  │  └─ Notas/                   # Información libre, sin alertas automáticas
 │  └─ navigation/
-│     ├─ StackNavigation.tsx   
+│     ├─ StackNavigator.tsx   
 │     └─ TabNavigator.tsx      
 │
 ├─ types/
@@ -33,6 +32,8 @@ mi-agenda/
 ├─ package.json
 ├─ tsconfig.json
 └─ README.md
+
+Nota: Las screens antiguas Turnos, Trámites y Actividades fueron eliminadas y unificadas en EventosScreen.
 
 
 
@@ -67,19 +68,15 @@ npm install
 npx expo start 
 
 Uso:
-En la pantalla principal verás tres botones:
+En la pantalla principal verás dos botones:
 
- Turnos médicos
+Ir a Eventos → Permite agregar turnos médicos, trámites y actividades desde la misma pantalla.
 
- Trámites
+Ver Lista de Eventos → Muestra todos los eventos agendados.
 
- Actividades
+Notas → Para registrar información libre, como ideas, observaciones o datos importantes que quieras tener a mano. No se asocia a fechas ni genera alertas automáticas.
 
- Notas -> Para registrar información libre, como ideas, observaciones o datos importantes que quieras tener a mano. No se asocia a fechas ni genera alertas automáticas.
-
-Al agregar un nuevo evento, la app verifica si ya hay algo en esa fecha y muestra una alerta, permitiendo reorganizar los turnos o continuar.
-Los datos se guardan localmente usando AsyncStorage.
-
+Al agregar un nuevo evento, la app verifica si ya hay algo en esa fecha y horario y muestra una alerta, permitiendo reorganizar los eventos o continuar. Los datos se guardan localmente usando AsyncStorage.
  
 Créditos
 
