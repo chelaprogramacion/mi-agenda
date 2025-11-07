@@ -1,5 +1,4 @@
-// src/screens/NotasScreen.tsx
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -38,6 +37,13 @@ const NotasScreen: React.FC = () => {
     }
   };
 
+  // 👇 Ejecutamos la carga inicial manualmente (sin useEffect)
+  if (notas.length === 0) {
+    (async () => {
+      await cargarNotas();
+    })();
+  }
+
   const agregarNota = async () => {
     if (!nuevaNota.trim()) {
       Alert.alert("Error", "Escribí algo antes de agregar la nota");
@@ -56,10 +62,6 @@ const NotasScreen: React.FC = () => {
     setNotas(listaActualizada);
     await guardarNotas(listaActualizada);
   };
-
-  useEffect(() => {
-    cargarNotas();
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -103,7 +105,7 @@ const NotasScreen: React.FC = () => {
 export default NotasScreen;
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, paddingTop: 100, backgroundColor: "#ffffff", },
+  container: { flex: 1, padding: 20, paddingTop: 100, backgroundColor: "#ffffff" },
   title: { fontSize: 24, fontWeight: "bold", marginBottom: 10 },
   inputContainer: { flexDirection: "row", marginBottom: 20 },
   input: {
@@ -112,7 +114,6 @@ const styles = StyleSheet.create({
     borderColor: "#000",
     borderRadius: 8,
     paddingHorizontal: 12,
-    
     height: 40,
   },
   button: {
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     paddingVertical: 10,
-    paddingRight: 40, 
+    paddingRight: 40,
     borderBottomWidth: 1,
     borderBottomColor: "#eee",
     position: "relative",
