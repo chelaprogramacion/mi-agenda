@@ -31,10 +31,10 @@ const EventosScreen: React.FC = () => {
   const [fechaSeleccionada, setFechaSeleccionada] = useState<string>("");
   const [eventos, setEventos] = useState<Evento[]>([]);
 
-  // --- STATES PARA EL DateTimePicker (solo agregado, nada más cambia) ---
+
   const [mostrarPicker, setMostrarPicker] = useState(false);
   const [horaTemp, setHoraTemp] = useState<Date>(new Date());
-  // ----------------------------------------------------------------------
+
 
   const cargarEventos = async () => {
     const data = await AsyncStorage.getItem("eventos");
@@ -137,19 +137,19 @@ const EventosScreen: React.FC = () => {
     Alert.alert("✅ Agregado", `${tipo} guardado para ${fechaSeleccionada}`);
   };
 
-  // --- Función para manejar la selección desde el picker ---
+  
   const onChangeHora = (event: any, selectedDate?: Date) => {
-    // cerrar el picker en Android/iOS (iOS puede dejarlo abierto si querés)
+    
     setMostrarPicker(Platform.OS === "ios");
     if (selectedDate) {
       const horas = selectedDate.getHours().toString().padStart(2, "0");
       const minutos = selectedDate.getMinutes().toString().padStart(2, "0");
       const horaFormateada = `${horas}:${minutos}`;
-      setHorario(horaFormateada); // EXACTAMENTE el mismo campo que usabas antes
+      setHorario(horaFormateada); 
       setHoraTemp(selectedDate);
     }
   };
-  // ----------------------------------------------------------
+  
 
   return (
     <View style={styles.container}>
@@ -189,11 +189,7 @@ const EventosScreen: React.FC = () => {
             onChangeText={setProfesional}
             style={styles.input}
           />
-          {/* -----------------------------------------------------------------
-              MANTENGO EXACTAMENTE el TextInput de horario como antes (editable)
-              y SOLO agrego un botón pequeño para abrir el DateTimePicker.
-              Esto NO cambia ninguna validación ni lógica.
-             ----------------------------------------------------------------- */}
+          
           <View style={{ flexDirection: "row", alignItems: "center" }}>
             <TextInput
               placeholder="Horario (ej. 14:30)"

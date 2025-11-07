@@ -37,7 +37,7 @@ const NotasScreen: React.FC = () => {
     }
   };
 
-  // 👇 Ejecutamos la carga inicial manualmente (sin useEffect)
+  
   if (notas.length === 0) {
     (async () => {
       await cargarNotas();
