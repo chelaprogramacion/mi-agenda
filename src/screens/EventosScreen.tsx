@@ -254,7 +254,7 @@ const EventosScreen: React.FC = () => {
           value={horaTemp}
           mode="time"
           is24Hour={true}
-          display="default"
+          display={Platform.OS === "android" ? "spinner" : "default"}
           onChange={onChangeHora}
         />
       )}

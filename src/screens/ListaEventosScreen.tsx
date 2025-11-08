@@ -33,32 +33,30 @@ const ListaScreen: React.FC = () => {
 
       {eventos.map(e => (
         <View key={e.id} style={styles.item}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View>
-              <Text style={styles.itemText}>
-                {formatoFecha(e.fecha)} • {e.tipo}: {e.nombre}
+          <View style={{ flex: 1 }}>
+            <Text style={styles.itemText}>
+              {formatoFecha(e.fecha)} • {e.tipo}: {e.nombre}
+            </Text>
+
+            {e.tipo === "Turno" && e.profesional && e.horario && (
+              <Text style={styles.itemSubText}>
+                Profesional: {e.profesional} | Horario: {e.horario}
               </Text>
+            )}
 
-              {e.tipo === "Turno" && e.profesional && e.horario && (
-                <Text style={styles.itemSubText}>
-                  Profesional: {e.profesional} | Horario: {e.horario}
-                </Text>
-              )}
+            {e.tipo === "Trámite" && (
+              <Text style={styles.itemSubText}>
+                {e.lugar ? `Lugar: ${e.lugar}` : ""} 
+                {e.horario ? ` | Horario: ${e.horario}` : ""}
+              </Text>
+            )}
 
-              {e.tipo === "Trámite" && (
-                <Text style={styles.itemSubText}>
-                  {e.lugar ? `Lugar: ${e.lugar}` : ""} 
-                  {e.horario ? ` | Horario: ${e.horario}` : ""}
-                </Text>
-              )}
-
-              {e.tipo === "Actividad" && e.horario && (
-                <Text style={styles.itemSubText}>
-                  Horario: {e.horario}
-                </Text>
-              )}
-            </View>
-          </ScrollView>
+            {e.tipo === "Actividad" && e.horario && (
+              <Text style={styles.itemSubText}>
+                Horario: {e.horario}
+              </Text>
+            )}
+          </View>
 
           <TouchableOpacity style={styles.deleteButton} onPress={() => deleteEvento(e.id)}>
             <Text style={styles.deleteButtonText}>❌</Text>
