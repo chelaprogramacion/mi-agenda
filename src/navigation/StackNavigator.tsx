@@ -11,7 +11,7 @@ export default function StackNavigator() {
     <Stack.Navigator>
 
       <Stack.Screen
-        name="Inicio"
+        name="InicioStack"
         component={InicioScreen}
         options={{ headerShown: false }}
       />

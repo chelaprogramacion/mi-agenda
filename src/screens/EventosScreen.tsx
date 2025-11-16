@@ -80,15 +80,10 @@ const EventosScreen: React.FC = () => {
 
     const otrosEventos = eventos.filter((e) => e.fecha === fechaSeleccionada);
 
-    const normalizarHora = (h: string = "") =>
-      h.toLowerCase().replace(/[^0-9:]/g, "").padStart(5, "0");
-
     const eventoMismoHorario = otrosEventos.find(
-      (e) =>
-        e.horario &&
-        horario &&
-        normalizarHora(e.horario) === normalizarHora(horario)
-    );
+  (e) => e.horario === horario
+);
+
 
     const nuevoEvento: Evento = {
       id: Date.now(),
@@ -140,7 +135,9 @@ const EventosScreen: React.FC = () => {
   
   const onChangeHora = (event: any, selectedDate?: Date) => {
     
-    setMostrarPicker(Platform.OS === "ios");
+    if (Platform.OS === "android") {
+  setMostrarPicker(false); 
+}
     if (selectedDate) {
       const horas = selectedDate.getHours().toString().padStart(2, "0");
       const minutos = selectedDate.getMinutes().toString().padStart(2, "0");
@@ -250,15 +247,30 @@ const EventosScreen: React.FC = () => {
       )}
 
       {mostrarPicker && (
-        <DateTimePicker
-          value={horaTemp}
-          mode="time"
-          is24Hour={true}
-          display={Platform.OS === "android" ? "spinner" : "default"}
-          onChange={onChangeHora}
-        />
-      )}
+  <>
+    <DateTimePicker
+      value={horaTemp}
+      mode="time"
+      is24Hour={true}
+      display={Platform.OS === "android" ? "spinner" : "default"}
+      onChange={onChangeHora}
+    />
 
+    {Platform.OS === "ios" && (
+      <TouchableOpacity
+        onPress={() => setMostrarPicker(false)}
+        style={{
+          backgroundColor: "#2563eb",
+          padding: 10,
+          marginTop: 5,
+          borderRadius: 8,
+        }}
+      >
+        <Text style={{ color: "#fff", textAlign: "center" }}>Cerrar</Text>
+      </TouchableOpacity>
+    )}
+  </>
+)}
       <Calendar
         style={{ height: 340 }}
         onDayPress={handleSeleccionFecha}
