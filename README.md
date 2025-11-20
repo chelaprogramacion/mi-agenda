@@ -42,25 +42,29 @@ Nota: Las screens antiguas Turnos, Trámites y Actividades fueron eliminadas y u
 ##  Dependencias principales
 
 **React Navigation**
- ```bash 
   npm install @react-navigation/native @react-navigation/native-stack
   npm install @react-navigation/bottom-tabs
   npm install react-native-screens react-native-safe-area-context
 
 **Iconos**
-bash
 npm install react-native-vector-icons
 
 **AsyncStorage**
-bash
 npm install @react-native-async-storage/async-storage
+
+**DateTimePicker**
+npm install @react-native-community/datetimepicker
+
+**Calendario**
+npm install react-native-calendars
+
 
 > Nota: No se utiliza ninguna funcionalidad de IA en esta versión.
 
 ---
 
 ## Instalación y ejecución 
-bash
+
 
 git clone https://github.com/chelaprogramacion/mi-agenda.git
 cd mi-agenda
@@ -70,16 +74,21 @@ npx expo start
 Uso:
 En la pantalla principal verás dos botones:
 
-Ir a Eventos → Permite agregar turnos médicos, trámites y actividades desde la misma pantalla.
+Ir a Eventos - Permite agregar turnos médicos, trámites y actividades desde la misma pantalla.
 
-Ver Lista de Eventos → Muestra todos los eventos agendados.
+Ver Lista de Eventos - Muestra todos los eventos agendados.
 
-Notas → Para registrar información libre, como ideas, observaciones o datos importantes que quieras tener a mano. No se asocia a fechas ni genera alertas automáticas.
+Notas - Para registrar información libre, como ideas, observaciones o datos importantes que quieras tener a mano. No se asocia a fechas ni genera alertas automáticas.
 
 Al agregar un nuevo evento, la app verifica si ya hay algo en esa fecha y horario y muestra una alerta, permitiendo reorganizar los eventos o continuar. Los datos se guardan localmente usando AsyncStorage.
  
 Créditos
 
-Esta aplicación fue desarrollada por Marcela Sanagua.
-Algunos fragmentos de código y mejoras fueron realizados con la ayuda de ChatGPT, asistente de IA de OpenAI.
+Algunos fragmentos de código y ajustes específicos fueron realizados con la ayuda de ChatGPT (OpenAI), principalmente en:
 
+
+- Manejo del DateTimePicker y lógica para seleccionar horarios.
+- Organización de las funciones que guardan y leen eventos usando AsyncStorage.
+- Corrección de errores menores de sintaxis y organización de carpetas.
+
+El desarrollo general de la aplicación fue realizado por Marcela Sanagua.

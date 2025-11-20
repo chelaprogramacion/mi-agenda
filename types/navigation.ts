@@ -1,9 +1,6 @@
 export type RootStackParamList = {
-  Tabs: undefined; 
-  HoyScreen: undefined;
-  Turnos: undefined;
-  Tramites: undefined;
-  Actividades: undefined;
+  Eventos: undefined;
+  ListaEventos: undefined;
 };
 
 export type RootTabParamList = {

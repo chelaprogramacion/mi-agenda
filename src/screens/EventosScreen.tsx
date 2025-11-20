@@ -18,7 +18,7 @@ export interface Evento {
   nombre: string;
   fecha: string;
   profesional?: string;
-  horario?: string;
+  horario: string;
   lugar?: string;
 }
 
@@ -45,7 +45,7 @@ const EventosScreen: React.FC = () => {
     await AsyncStorage.setItem("eventos", JSON.stringify(lista));
   };
 
-  const handleSeleccionFecha = (day: any) => {
+  const handleSeleccionFecha = (day: { dateString: string }) => {
     setFechaSeleccionada(day.dateString);
     cargarEventos();
   };
@@ -73,7 +73,7 @@ const EventosScreen: React.FC = () => {
       return;
     }
 
-    if (tipo === "Actividad" && !horario.trim()) {
+    if (tipo === "Actividad" &&  !horario.trim()) {
       Alert.alert("⚠️ Error", "Completa el horario de la actividad");
       return;
     }
@@ -153,19 +153,19 @@ const EventosScreen: React.FC = () => {
       <Text style={styles.title}>Mi Agenda</Text>
 
       <View style={styles.tipoContainer}>
-        {["Turno", "Trámite", "Actividad"].map((op) => (
+        {["Turno", "Trámite", "Actividad"].map((tipoEvento) => (
           <TouchableOpacity
-            key={op}
-            style={[styles.tipoButton, tipo === op && styles.tipoButtonActivo]}
-            onPress={() => setTipo(op as any)}
+            key={tipoEvento}
+            style={[styles.tipoButton, tipo === tipoEvento && styles.tipoButtonActivo]}
+            onPress={() => setTipo(tipoEvento as any)}
           >
             <Text
               style={[
                 styles.tipoButtonText,
-                tipo === op && { color: "#fff" },
+                tipo === tipoEvento && { color: "#fff" },
               ]}
             >
-              {op}
+              {tipoEvento}
             </Text>
           </TouchableOpacity>
         ))}
